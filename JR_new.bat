@@ -1,7 +1,7 @@
 :: JunkwareRemover
 :: Created by Furtivex
 @echo OFF
-title JunkwareRemover - Version 1.0.2
+title JunkwareRemover - Version 1.0.3
 REM ~~~~~~~~~~~~~~~~~~~~~~~~>
 SET "jr=%TEMP%\jr"
 SET "JRTEMP=%TEMP%\jr\TEMP"
@@ -49,7 +49,7 @@ SET "TIFS=%localappdata%\Microsoft\Windows\Temporary Internet Files\Content.IE5"
 
 :: Processes
 
-TASKKILL /F /IM "msedge.exe"
+TASKKILL /F /IM "msedge.exe" >NUL 2>&1
 
 :: Tasks
 for %%i in (
@@ -59,7 +59,7 @@ for %%i in (
 "Microsoft\XblGameSave"
 "Microsoft\XblGameSave\XblGameSaveTask"
 ) DO (
-       SCHTASKS /DELETE /TN %%i /F
+       SCHTASKS /DELETE /TN %%i /F >NUL 2>&1
       )
 )
 
@@ -70,7 +70,7 @@ for %%i in (
 "HKLM\SYSTEM\CurrentControlSet\services\edgeupdatem"
 "HKLM\SYSTEM\CurrentControlSet\services\MicrosoftEdgeElevationService"
 ) DO (
-       REG DELETE %%i /F
+       REG DELETE %%i /F >NUL 2>&1
       )
 )
 
@@ -85,18 +85,15 @@ for %%i in (
 "%USERPROFILE%\Desktop\Microsoft Edge.lnk"
 "%PROGRAMS27%\Microsoft Edge.lnk"
 "%USERPROFILE%\Favorites\Bing.url"
-"%QUICKLAUNCHALL%\*.lnk"
 ) DO (
-      DEL /F/Q %%i
+      DEL /F/Q %%i >NUL 2>&1
      )
 )
 
 :: Folders
 for %%i in (
-"%APPDATA%\Microsoft\Internet Explorer
 "%LOCALA%\Microsoft\Edge"
 "%LOCALA%\Microsoft\XboxLive"
-"%LOCALLOW%\Microsoft\Internet Explorer"
 "%PROGRAMFILES%\Microsoft\EdgeUpdater"
 "%PROGRAMFILES(x86)%\Microsoft\Edge"
 "%PROGRAMFILES(x86)%\Microsoft\EdgeCore"
@@ -104,6 +101,6 @@ for %%i in (
 "%USERPROFILE%\MicrosoftEdgeBackups"
 ) DO (
       IF EXIST %%i (
-                     RD /S/Q %%i
+                     RD /S/Q %%i >NUL 2>&1
                     )
 )
