@@ -48,7 +48,6 @@ SET "TIFS=%localappdata%\Microsoft\Windows\Temporary Internet Files\Content.IE5"
 
 
 :: Processes
-
 TASKKILL /F /IM "msedge.exe" >NUL 2>&1
 
 :: Tasks
@@ -64,7 +63,6 @@ for %%i in (
 )
 
 :: Services
-
 for %%i in (
 "HKLM\SYSTEM\CurrentControlSet\services\edgeupdate"
 "HKLM\SYSTEM\CurrentControlSet\services\edgeupdatem"
@@ -75,7 +73,6 @@ for %%i in (
 )
 
 :: Files
-
 for %%i in (
 "%PROGRAMFILES(x86)%\World of Warcraft\_retail_\Logs\RaiderIOLogsArchive\*"
 "%PROGRAMFILES(x86)%\World of Warcraft\_xptr_\Logs\*"
@@ -98,6 +95,7 @@ for %%i in (
 "%PROGRAMFILES(x86)%\Microsoft\Edge"
 "%PROGRAMFILES(x86)%\Microsoft\EdgeCore"
 "%PROGRAMFILES(x86)%\Microsoft\EdgeUpdate"
+"%PROGRAMFILES(x86)%\Microsoft\EdgeWebView"
 "%USERPROFILE%\MicrosoftEdgeBackups"
 ) DO (
       IF EXIST %%i (
