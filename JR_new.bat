@@ -1,7 +1,7 @@
 :: JunkwareRemover
 :: Created by Furtivex
 @echo OFF
-title JunkwareRemover - Version 1.0.3
+title JunkwareRemover - Version 1.0.4
 REM ~~~~~~~~~~~~~~~~~~~~~~~~>
 SET "jr=%TEMP%\jr"
 SET "JRTEMP=%TEMP%\jr\TEMP"
@@ -91,6 +91,7 @@ for %%i in (
 for %%i in (
 "%LOCALA%\MicrosoftEdge"
 "%LOCALA%\Microsoft\Edge"
+"%LOCALA%\Microsoft\OneDrive"
 "%LOCALA%\Microsoft\XboxLive"
 "%PROGRAMFILES%\Microsoft\EdgeUpdater"
 "%PROGRAMFILES(x86)%\Microsoft\Edge"
