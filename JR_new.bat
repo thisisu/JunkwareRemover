@@ -89,6 +89,7 @@ for %%i in (
 
 :: Folders
 for %%i in (
+"%LOCALA%\MicrosoftEdge"
 "%LOCALA%\Microsoft\Edge"
 "%LOCALA%\Microsoft\XboxLive"
 "%PROGRAMFILES%\Microsoft\EdgeUpdater"
