@@ -54,6 +54,7 @@ for %%i in (
 
 :: Services
 :Services
+IF NOT EXIST %SYS32%\reg.exe GOTO :Files
 for %%i in (
 "HKLM\SYSTEM\CurrentControlSet\services\edgeupdate"
 "HKLM\SYSTEM\CurrentControlSet\services\edgeupdatem"
@@ -64,6 +65,7 @@ for %%i in (
 )
 
 :: Files
+:Files
 for %%i in (
 "%USERPROFILE%\Desktop\Microsoft Edge.lnk"
 "%PROGRAMS27%\Microsoft Edge.lnk"
