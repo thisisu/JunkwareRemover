@@ -29,6 +29,32 @@ TASKKILL /F /IM "msedge.exe" >NUL 2>&1
 
 :: Registry
 IF NOT EXIST %SYS32%\reg.exe GOTO :Tasks
+
+if %ARCH%==x64 (
+                 for %%i in (
+"HKLM\SOFTWARE\WOW6432Node\Clients\StartMenuInternet\Microsoft Edge"
+"HKLM\SOFTWARE\WOW6432Node\Microsoft\Edge"
+"HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate"
+"HKLM\SOFTWARE\WOW6432Node\Microsoft\OneDrive"
+"HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge"
+"HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update"
+"HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView"
+) DO (
+       REG DELETE %%i /F >NUL 2>&1
+      )
+)
+
+for %%i in (
+"HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView"
+"HKCU\Software\Microsoft\Xbox"
+"HKCU\Software\Microsoft\XboxLive"
+"HKLM\SOFTWARE\Clients\StartMenuInternet\Microsoft Edge"
+"HKLM\SOFTWARE\Microsoft\Xbox"
+) DO (
+       REG DELETE %%i /F >NUL 2>&1
+      )
+)
+
 IF NOT EXIST %SYS32%\findstr.exe GOTO :Tasks
 IF NOT EXIST %WINDIR%\sed.exe GOTO :Tasks
 REG QUERY "HKCU\Software\Microsoft\Windows\CurrentVersion\Run"|FINDSTR /i "MicrosoftEdgeAutoLaunch">"%TEMP%\trash.txt"
