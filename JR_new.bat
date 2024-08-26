@@ -1,7 +1,7 @@
 :: JunkwareRemover
 :: Created by Furtivex
 @echo OFF && color 17
-title JunkwareRemover - Version 1.0.5
+title JunkwareRemover - Version 1.0.7
 REM ~~~~~~~~~~~~~~~~~~~~~~~~>
 SET "QUICKLAUNCHALL=%appdata%\Microsoft\Internet Explorer\Quick Launch"
 SET "PROGRAMS1ALL=%allusersprofile%\Start Menu\Programs"
@@ -32,29 +32,105 @@ IF NOT EXIST %SYS32%\reg.exe GOTO :Tasks
 
 if %ARCH%==x64 (
                  for %%i in (
-"HKLM\SOFTWARE\WOW6432Node\Clients\StartMenuInternet\Microsoft Edge"
-"HKLM\SOFTWARE\WOW6432Node\Microsoft\Edge"
-"HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate"
-"HKLM\SOFTWARE\WOW6432Node\Microsoft\OneDrive"
-"HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge"
-"HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update"
-"HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView"
+"HKCR\WOW6432Node\CLSID\{08D832B9-D2FD-481F-98CF-904D00DF63CC}"
+"HKCR\WOW6432Node\CLSID\{2E1DD7EF-C12D-4F8E-8AD8-CF8CC265BAD0}"
+"HKCR\WOW6432Node\CLSID\{492E1C30-A1A2-4695-87C8-7A8CAD6F936F}"
+"HKCR\WOW6432Node\CLSID\{5F6A18BB-6231-424B-8242-19E5BB94F8ED}"
+"HKCR\WOW6432Node\CLSID\{8F09CD6C-5964-4573-82E3-EBFF7702865B}"
+"HKCR\WOW6432Node\CLSID\{A6B716CB-028B-404D-B72C-50E153DD68DA}"
+"HKCR\WOW6432Node\CLSID\{B5977F34-9264-4AC3-9B31-1224827FF6E8}"
+"HKCR\WOW6432Node\CLSID\{D1E8B1A6-32CE-443C-8E2E-EBA90C481353}"
+"HKCR\WOW6432Node\CLSID\{E421557C-0628-43FB-BF2B-7C9F8A4D067C}"
+"HKCR\WOW6432Node\CLSID\{EA92A799-267E-4DF5-A6ED-6A7E0684BB8A}"
+"HKCR\WOW6432Node\CLSID\{FF419FF9-90BE-4D9F-B410-A789F90E5A7C}"
+"HKLM\Software\Classes\AppID\{C5D3C0E1-DC41-4F83-8BA8-CC0D46BCCDE3}"
+"HKLM\Software\Classes\WOW6432Node\CLSID\{08D832B9-D2FD-481F-98CF-904D00DF63CC}"
+"HKLM\Software\Classes\WOW6432Node\CLSID\{2E1DD7EF-C12D-4F8E-8AD8-CF8CC265BAD0}"
+"HKLM\Software\Classes\WOW6432Node\CLSID\{492E1C30-A1A2-4695-87C8-7A8CAD6F936F}"
+"HKLM\Software\Classes\WOW6432Node\CLSID\{5F6A18BB-6231-424B-8242-19E5BB94F8ED}"
+"HKLM\Software\Classes\WOW6432Node\CLSID\{8F09CD6C-5964-4573-82E3-EBFF7702865B}"
+"HKLM\Software\Classes\WOW6432Node\CLSID\{A6B716CB-028B-404D-B72C-50E153DD68DA}"
+"HKLM\Software\Classes\WOW6432Node\CLSID\{B5977F34-9264-4AC3-9B31-1224827FF6E8}"
+"HKLM\Software\Classes\WOW6432Node\CLSID\{D1E8B1A6-32CE-443C-8E2E-EBA90C481353}"
+"HKLM\Software\Classes\WOW6432Node\CLSID\{E421557C-0628-43FB-BF2B-7C9F8A4D067C}"
+"HKLM\Software\Classes\WOW6432Node\CLSID\{EA92A799-267E-4DF5-A6ED-6A7E0684BB8A}"
+"HKLM\Software\Classes\WOW6432Node\CLSID\{FF419FF9-90BE-4D9F-B410-A789F90E5A7C}"
+"HKLM\Software\WOW6432Node\Clients\StartMenuInternet\Microsoft Edge"
+"HKLM\Software\WOW6432Node\Microsoft\Edge"
+"HKLM\Software\WOW6432Node\Microsoft\EdgeUpdate"
+"HKLM\Software\WOW6432Node\Microsoft\OneDrive"
+"HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update"
+"HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge"
+"HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView"
 ) DO (
        REG DELETE %%i /F >NUL 2>&1
       )
 )
 
+
 for %%i in (
+"HKCR\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository\Packages\Microsoft.MicrosoftEdge.Stable_127.0.2651.98_neutral__8wekyb3d8bbwe"
+"HKCR\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository\Packages\Microsoft.MicrosoftEdgeDevToolsClient_1000.22621.1.0_neutral_neutral_8wekyb3d8bbwe"
+"HKCR\MSEdgeHTM"
+"HKCR\MSEdgeMHT"
+"HKCR\MSEdgePDF"
+"HKCR\MicrosoftEdgeUpdate.CoreClass"
+"HKCR\MicrosoftEdgeUpdate.CoreClass.1"
+"HKCR\MicrosoftEdgeUpdate.CoreMachineClass"
+"HKCR\MicrosoftEdgeUpdate.CoreMachineClass.1"
+"HKCR\MicrosoftEdgeUpdate.CredentialDialogMachine"
+"HKCR\MicrosoftEdgeUpdate.CredentialDialogMachine.1.0"
+"HKCR\MicrosoftEdgeUpdate.OnDemandCOMClassMachine"
+"HKCR\MicrosoftEdgeUpdate.OnDemandCOMClassMachine.1.0"
+"HKCR\MicrosoftEdgeUpdate.OnDemandCOMClassMachineFallback"
+"HKCR\MicrosoftEdgeUpdate.OnDemandCOMClassMachineFallback.1.0"
+"HKCR\MicrosoftEdgeUpdate.OnDemandCOMClassSvc"
+"HKCR\MicrosoftEdgeUpdate.OnDemandCOMClassSvc.1.0"
+"HKCR\MicrosoftEdgeUpdate.PolicyStatusMachine"
+"HKCR\MicrosoftEdgeUpdate.PolicyStatusMachine.1.0"
+"HKCR\MicrosoftEdgeUpdate.PolicyStatusMachineFallback"
+"HKCR\MicrosoftEdgeUpdate.PolicyStatusMachineFallback.1.0"
+"HKCR\MicrosoftEdgeUpdate.PolicyStatusSvc"
+"HKCR\MicrosoftEdgeUpdate.PolicyStatusSvc.1.0"
+"HKCR\MicrosoftEdgeUpdate.ProcessLauncher"
+"HKCR\MicrosoftEdgeUpdate.ProcessLauncher.1.0"
+"HKCR\MicrosoftEdgeUpdate.Update3COMClassService"
+"HKCR\MicrosoftEdgeUpdate.Update3COMClassService.1.0"
+"HKCR\MicrosoftEdgeUpdate.Update3WebMachine"
+"HKCR\MicrosoftEdgeUpdate.Update3WebMachine.1.0"
+"HKCR\MicrosoftEdgeUpdate.Update3WebMachineFallback"
+"HKCR\MicrosoftEdgeUpdate.Update3WebMachineFallback.1.0"
+"HKCR\MicrosoftEdgeUpdate.Update3WebSvc"
+"HKCR\MicrosoftEdgeUpdate.Update3WebSvc.1.0"
+"HKCR\microsoft-edge"
+"HKCR\microsoft-edge-holographic"
+"HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository\Packages\Microsoft.MicrosoftEdge.Stable_127.0.2651.98_neutral__8wekyb3d8bbwe"
+"HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository\Packages\Microsoft.MicrosoftEdgeDevToolsClient_1000.22621.1.0_neutral_neutral_8wekyb3d8bbwe"
+"HKCU\Software\Classes\bingmaps"
+"HKCU\Software\Classes\bingnews"
+"HKCU\Software\Classes\bingweather"
 "HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView"
 "HKCU\Software\Microsoft\Xbox"
 "HKCU\Software\Microsoft\XboxLive"
-"HKLM\SOFTWARE\Clients\StartMenuInternet\Microsoft Edge"
-"HKLM\SOFTWARE\Microsoft\Xbox"
+"HKLM\Software\Classes\AppID\{C5D3C0E1-DC41-4F83-8BA8-CC0D46BCCDE3}"
+"HKLM\Software\Classes\MSEdgeHTM"
+"HKLM\Software\Classes\MSEdgeMHT"
+"HKLM\Software\Classes\MSEdgePDF"
+"HKLM\Software\Clients\StartMenuInternet\Microsoft Edge"
+"HKLM\Software\Microsoft\Active Setup\Installed Components\{9459C573-B17A-45AE-9F64-1857B5D58CEE}"
+"HKLM\Software\Microsoft\MSN Apps\MSN Toolbar Suite"
+"HKLM\Software\Microsoft\MicrosoftEdge"
+"HKLM\Software\Microsoft\Xbox"
 ) DO (
        REG DELETE %%i /F >NUL 2>&1
       )
 )
 
+:: Solo Registry Value
+REG DELETE "HKLM\Software\RegisteredApplications" /V "Microsoft Edge" /F >NUL 2>&1
+REG DELETE "HKLM\Software\WOW6432Node\RegisteredApplications" /V "Microsoft Edge" /F >NUL 2>&1
+
+:: Heuristic Registry Value
 IF NOT EXIST %SYS32%\findstr.exe GOTO :Tasks
 IF NOT EXIST %WINDIR%\sed.exe GOTO :Tasks
 REG QUERY "HKCU\Software\Microsoft\Windows\CurrentVersion\Run"|FINDSTR /i "MicrosoftEdgeAutoLaunch">"%TEMP%\trash.txt"
