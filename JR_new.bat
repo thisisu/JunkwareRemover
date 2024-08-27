@@ -1,7 +1,7 @@
 :: JunkwareRemover
 :: Created by Furtivex
 @echo OFF && color 17
-title JunkwareRemover - Version 1.0.8
+title JunkwareRemover - Version 1.0.9
 REM ~~~~~~~~~~~~~~~~~~~~~~~~>
 SET "QUICKLAUNCHALL=%appdata%\Microsoft\Internet Explorer\Quick Launch"
 SET "PROGRAMS1ALL=%allusersprofile%\Start Menu\Programs"
@@ -63,6 +63,8 @@ if %ARCH%==x64 (
 "HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update"
 "HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge"
 "HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView"
+"HKLM\Software\WOW6432Node\Policies\Microsoft\Edge"
+"HKLM\Software\WOW6432Node\Policies\Microsoft\MicrosoftEdge"
 ) DO (
        REG DELETE %%i /F >NUL 2>&1
       )
@@ -149,19 +151,35 @@ REG DELETE "HKLM\Software\RegisteredApplications" /V "Microsoft Edge" /F >NUL 2>
 REG DELETE "HKLM\Software\WOW6432Node\RegisteredApplications" /V "Microsoft Edge" /F >NUL 2>&1
 
 
+:: Heuristic Registry Key
+IF NOT EXIST %SYS32%\findstr.exe GOTO :Policies
+REG QUERY "HKCR"|FINDSTR /i "xboxliveapp-">"%TEMP%\trash3.txt"
+IF %ERRORLEVEL% EQU 1 ( GOTO :HeurValue )
+for /f "usebackq delims=" %%i in ("%TEMP%\trash3.txt") DO (
+    REG DELETE "%%i" /F >NUL 2>&1
+)
+
+
 :: Heuristic Registry Value
-IF NOT EXIST %SYS32%\findstr.exe GOTO :Tasks
-IF NOT EXIST %WINDIR%\sed.exe GOTO :Tasks
+:HeurValue
+IF NOT EXIST %SYS32%\findstr.exe GOTO :Policies
+IF NOT EXIST %WINDIR%\sed.exe GOTO :Policies
 REG QUERY "HKCU\Software\Microsoft\Windows\CurrentVersion\Run"|FINDSTR /i "MicrosoftEdgeAutoLaunch">"%TEMP%\trash.txt"
-IF %ERRORLEVEL% EQU 1 ( GOTO :Tasks )
+IF %ERRORLEVEL% EQU 1 ( GOTO :Policies )
 SED -r "s/^\s{4}//;s/\s+REG_SZ\s+.*//g" <"%TEMP%\trash.txt" >"%TEMP%\trash2.txt"
 for /f "usebackq delims=" %%i in ("%TEMP%\trash2.txt") DO (
     REG DELETE "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /V "%%i" /F >NUL 2>&1
 )
 
 :: Policies
-reg add "HKLM\Software\Microsoft\PolicyManager\default\System\AllowTelemetry" /t REG_DWORD /v value /d 0 /F >NUL 2>&1
-reg add "HKLM\Software\Microsoft\PolicyManager\default\WindowsAI\TurnOffWindowsCopilot" /t REG_DWORD /v value /d 1 /F >NUL 2>&1
+:Policies
+REG ADD "HKLM\Software\Microsoft\PolicyManager\default\System\AllowTelemetry" /T REG_DWORD /V value /D 0 /F >NUL 2>&1
+REG ADD "HKLM\Software\Microsoft\PolicyManager\default\WindowsAI\TurnOffWindowsCopilot" /T REG_DWORD /V value /D 1 /F >NUL 2>&1
+REG ADD "HKLM\Software\Policies\Microsoft\Windows\AdvertisingInfo" /T REG_DWORD /V DisabledByGroupPolicy /D 1 /F >NUL 2>&1
+REG ADD "HKLM\Software\Policies\Microsoft\Windows\DataCollection" /T REG_DWORD /V AllowTelemetry /D 0 /F >NUL 2>&1
+REG ADD "HKLM\Software\Policies\Microsoft\Windows\DataCollection" /T REG_DWORD /V MaxTelemetryAllowed /D 0 /F >NUL 2>&1
+REG ADD "HKLM\Software\Policies\Microsoft\Windows\WindowsAI" /T REG_DWORD /V DisabledByGroupPolicy /D 1 /F >NUL 2>&1
+
 
 :: Tasks
 :Tasks
