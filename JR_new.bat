@@ -1,7 +1,7 @@
 :: JunkwareRemover
 :: Created by Furtivex
 @echo OFF && color 17
-title JunkwareRemover - Version 1.0.7
+title JunkwareRemover - Version 1.0.8
 REM ~~~~~~~~~~~~~~~~~~~~~~~~>
 SET "QUICKLAUNCHALL=%appdata%\Microsoft\Internet Explorer\Quick Launch"
 SET "PROGRAMS1ALL=%allusersprofile%\Start Menu\Programs"
@@ -36,6 +36,7 @@ if %ARCH%==x64 (
 "HKCR\WOW6432Node\CLSID\{2E1DD7EF-C12D-4F8E-8AD8-CF8CC265BAD0}"
 "HKCR\WOW6432Node\CLSID\{492E1C30-A1A2-4695-87C8-7A8CAD6F936F}"
 "HKCR\WOW6432Node\CLSID\{5F6A18BB-6231-424B-8242-19E5BB94F8ED}"
+"HKCR\WOW6432Node\CLSID\{78DE489B-7931-4f14-83B4-C56D38AC9FFA}"
 "HKCR\WOW6432Node\CLSID\{8F09CD6C-5964-4573-82E3-EBFF7702865B}"
 "HKCR\WOW6432Node\CLSID\{A6B716CB-028B-404D-B72C-50E153DD68DA}"
 "HKCR\WOW6432Node\CLSID\{B5977F34-9264-4AC3-9B31-1224827FF6E8}"
@@ -69,8 +70,8 @@ if %ARCH%==x64 (
 
 
 for %%i in (
-"HKCR\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository\Packages\Microsoft.MicrosoftEdge.Stable_127.0.2651.98_neutral__8wekyb3d8bbwe"
-"HKCR\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository\Packages\Microsoft.MicrosoftEdgeDevToolsClient_1000.22621.1.0_neutral_neutral_8wekyb3d8bbwe"
+"HKCR\CLSID\{78DE489B-7931-4f14-83B4-C56D38AC9FFA}"
+"HKCR\CLSID\{86C815AA-4888-4063-B0AB-03C49F788BE4}"
 "HKCR\MSEdgeHTM"
 "HKCR\MSEdgeMHT"
 "HKCR\MSEdgePDF"
@@ -104,11 +105,24 @@ for %%i in (
 "HKCR\MicrosoftEdgeUpdate.Update3WebSvc.1.0"
 "HKCR\microsoft-edge"
 "HKCR\microsoft-edge-holographic"
-"HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository\Packages\Microsoft.MicrosoftEdge.Stable_127.0.2651.98_neutral__8wekyb3d8bbwe"
-"HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository\Packages\Microsoft.MicrosoftEdgeDevToolsClient_1000.22621.1.0_neutral_neutral_8wekyb3d8bbwe"
+"HKCR\xbox"
+"HKCR\xbox-arena"
+"HKCR\xbox-captures"
+"HKCR\xbox-friendfinder"
+"HKCR\xbox-gamehub"
+"HKCR\xbox-lfg"
+"HKCR\xbox-network"
+"HKCR\xbox-profile"
+"HKCR\xbox-settings"
+"HKCR\xbox-store"
+"HKCR\xbox-tcui"
+"HKCR\xboxgames"
+"HKCR\xboxidp"
+"HKCR\xboxmusic"
 "HKCU\Software\Classes\bingmaps"
 "HKCU\Software\Classes\bingnews"
 "HKCU\Software\Classes\bingweather"
+"HKCU\Software\Classes\grvopen"
 "HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView"
 "HKCU\Software\Microsoft\Xbox"
 "HKCU\Software\Microsoft\XboxLive"
@@ -120,6 +134,8 @@ for %%i in (
 "HKLM\Software\Microsoft\Active Setup\Installed Components\{9459C573-B17A-45AE-9F64-1857B5D58CEE}"
 "HKLM\Software\Microsoft\MSN Apps\MSN Toolbar Suite"
 "HKLM\Software\Microsoft\MicrosoftEdge"
+"HKLM\Software\Microsoft\OneDrive"
+"HKLM\Software\Microsoft\PolicyManager\default\TaskScheduler\EnableXboxGameSaveTask"
 "HKLM\Software\Microsoft\Xbox"
 ) DO (
        REG DELETE %%i /F >NUL 2>&1
@@ -127,8 +143,11 @@ for %%i in (
 )
 
 :: Solo Registry Value
+REG DELETE "HKCU\Environment" /V "OneDrive" /F >NUL 2>&1
+REG DELETE "HKCU\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run" "OneDriveSetup" /F >NUL 2>&1
 REG DELETE "HKLM\Software\RegisteredApplications" /V "Microsoft Edge" /F >NUL 2>&1
 REG DELETE "HKLM\Software\WOW6432Node\RegisteredApplications" /V "Microsoft Edge" /F >NUL 2>&1
+
 
 :: Heuristic Registry Value
 IF NOT EXIST %SYS32%\findstr.exe GOTO :Tasks
@@ -139,6 +158,10 @@ SED -r "s/^\s{4}//;s/\s+REG_SZ\s+.*//g" <"%TEMP%\trash.txt" >"%TEMP%\trash2.txt"
 for /f "usebackq delims=" %%i in ("%TEMP%\trash2.txt") DO (
     REG DELETE "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /V "%%i" /F >NUL 2>&1
 )
+
+:: Policies
+reg add "HKLM\Software\Microsoft\PolicyManager\default\System\AllowTelemetry" /t REG_DWORD /v value /d 0 /F >NUL 2>&1
+reg add "HKLM\Software\Microsoft\PolicyManager\default\WindowsAI\TurnOffWindowsCopilot" /t REG_DWORD /v value /d 1 /F >NUL 2>&1
 
 :: Tasks
 :Tasks
